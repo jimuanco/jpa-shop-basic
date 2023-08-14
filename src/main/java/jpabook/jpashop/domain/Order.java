@@ -2,6 +2,8 @@ package jpabook.jpashop.domain;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "ORDERS")
@@ -11,15 +13,23 @@ public class Order {
     @Column(name = "ORDER_ID")
     private Long id;
 
-    @Column(name = "MEMBER_ID")
-    private Long memberId;
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
 
-//    private Member member; //이렇게 해줘야 객체지향적적
+    //주문서로 아이템 목록을 뽑아내는 식의 비즈니스적으로 의미있을 확률이 높음
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems = new ArrayList<>();
 
    private LocalDateTime orderDate; //스프링 부트 사용시 -> order_date
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOder(this);
+    }
 
     public Long getId() {
         return id;
@@ -29,12 +39,12 @@ public class Order {
         this.id = id;
     }
 
-    public Long getMemberId() {
-        return memberId;
+    public Member getMember() {
+        return member;
     }
 
-    public void setMemberId(Long memberId) {
-        this.memberId = memberId;
+    public void setMember(Member member) {
+        this.member = member;
     }
 
     public LocalDateTime getOrderDate() {
