@@ -40,7 +40,7 @@ public class JpaMain {
             em.persist(order);
 
             OrderItem orderItem = new OrderItem();
-            orderItem.setOder(order);
+            orderItem.setOrder(order);
 
             em.persist(orderItem);
 

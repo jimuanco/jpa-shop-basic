@@ -17,6 +17,10 @@ public class Order {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
+    @OneToOne
+    @JoinColumn(name = "DELIVERY_ID")
+    private Delivery delivery;
+
     //주문서로 아이템 목록을 뽑아내는 식의 비즈니스적으로 의미있을 확률이 높음
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems = new ArrayList<>();
@@ -28,7 +32,7 @@ public class Order {
 
     public void addOrderItem(OrderItem orderItem) {
         orderItems.add(orderItem);
-        orderItem.setOder(this);
+        orderItem.setOrder(this);
     }
 
     public Long getId() {
