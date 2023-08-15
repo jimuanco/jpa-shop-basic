@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 //@Table(indexes = @Index()) //index도 넣어주는게 좋아, jpql에 where 문 짤 때 바로 확인하고 짤 수 있음
-public class Member {
+public class Member extends BaseEntity {
 
     @Id @GeneratedValue
     @Column(name = "MEMBER_ID")

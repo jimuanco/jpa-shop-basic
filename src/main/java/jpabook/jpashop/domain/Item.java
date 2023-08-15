@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Item {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn
+public abstract class Item extends BaseEntity { //Item만 단독으로 테이블에 저장 X -> 추상클래스
 
     @Id @GeneratedValue
     @Column(name = "ITEM_ID")

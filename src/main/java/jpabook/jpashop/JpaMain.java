@@ -1,5 +1,6 @@
 package jpabook.jpashop;
 
+import jpabook.jpashop.domain.Book;
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.domain.Order;
 import jpabook.jpashop.domain.OrderItem;
@@ -18,14 +19,17 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
+/*
         try {
 
+*/
 /*
             Order order = em.find(Order.class, 1L);
             Long memberId = order.getMemberId();
 
             Member member = em.find(Member.class, memberId);
-*/
+*//*
+
 
             //주문 객체를 만들어서 원하는 orderItem들을 넣을 수 있음
 //            Order order = new Order();
@@ -50,6 +54,23 @@ public class JpaMain {
         } finally {
             em.close();
         }
+*/
+
+        try {
+
+            Book book = new Book();
+            book.setName("JPA");
+            book.setAuthor("Jim");
+
+            em.persist(book);
+
+            tx.commit();
+        } catch(Exception e) {
+            tx.rollback();
+        } finally {
+            em.close();
+        }
+
 
         emf.close();
     }
